@@ -7,6 +7,8 @@
     <link href="{% static 'bootstrap/dist/css/bootstrap.css' %}" rel="stylesheet">
     <link href="{% static 'css/styles.css' %}" rel="stylesheet">
     <script src="{% static 'ckeditor/ckeditor.js' %}"></script>
+    {% block styles %}
+    {% endblock styles %}
 </head>
 
 <body>
@@ -33,6 +35,7 @@
                 </div>
                 <div id="navbar" class="collapse navbar-collapse">
                     <ul class="nav navbar-nav">
+                        {% if not user.is_authenticated %}<li><a href="/signin">Sign-in</a></li>{% endif %}
                         <li><a href="/">Home</a></li>
                         <li><a href="/about/">About</a></li>
                         <li><a href="#contact">Contact</a></li>

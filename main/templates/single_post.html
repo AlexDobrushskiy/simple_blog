@@ -16,6 +16,7 @@
             {% for comment in comments %}
                 <li style="list-style: square;">
                     <div>
+                        <i>{% if comment.who %}{{ comment.who.username }}{% else %}Anonimous{% endif %}</i>
                         <h7>{{ comment.when }}</h7>
                         <p>{{ comment.text }}</p>
                     </div>
@@ -23,6 +24,8 @@
             {% endfor %}
             </ul>
 
+            {# Add comment form#}
+            {% if user.is_authenticated %}
             <form action="/posts/{{ post.id}}/add_comment/" method="post">
                 {% csrf_token %}
                 <ul>
@@ -30,6 +33,11 @@
                 <li style="list-style: none"><button type="submit" class="btn btn-default">Add comment</button></li>
                 </ul>
             </form>
+            {% else %}
+                <p>
+                    <i>Please log in for adding comments</i>
+                </p>
+            {% endif %}
         </div>
     </section>
 {%  endblock content %}

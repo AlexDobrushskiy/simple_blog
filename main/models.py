@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 
 # Create your models here.
@@ -19,6 +20,7 @@ class Comment(models.Model):
     post = models.ForeignKey('Post')
     text = models.TextField(u'Comment text')
     when = models.DateTimeField(auto_now=True)
+    who = models.ForeignKey(User, null=True)
 
     def __unicode__(self):
         return u'Comment to "{}"'.format(self.post.header)

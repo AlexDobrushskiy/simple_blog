@@ -1,9 +1,10 @@
+from django import forms
 from django.shortcuts import render
 from django.views.generic import View
 from django.http import HttpResponse, HttpResponseRedirect
 from main.models import Post, Comment
 from django.contrib.auth import authenticate, login, logout
-# Create your views here.
+from django.contrib.auth.forms import UserCreationForm
 
 
 class Posts(View):
@@ -76,10 +77,34 @@ class AddComment(View):
     def post(self, request, id):
         comment = request.POST['comment']
         post = Post.objects.get(id=id)
-        Comment.objects.create(text=comment, post=post)
+        who = request.user
+        Comment.objects.create(text=comment, post=post, who=who)
         return HttpResponseRedirect('/posts/{}/'.format(id))
 
 
 class About(View):
     def get(self, request):
         return HttpResponse(render(request, 'about.html', {}))
+
+
+class SignIn(View):
+    def get(self, request):
+        if request.user.is_authenticated():
+            return HttpResponseRedirect('/')
+
+        form = UserCreationForm()
+        return render(request, "registration/register.html", {
+            'form': form,
+        })
+
+    def post(self, request):
+
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            new_user = form.save()
+            return HttpResponseRedirect("/")
+        return render(request, "registration/register.html", {
+            'form': form,
+        })
+
+
