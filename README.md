@@ -19,6 +19,7 @@ Course was read in [Liceum #40, Nizhniy Novgorod, Russia](http://www.lic40nn.edu
 * step-4 - Some minor frontend style changes.
 * step-5 - Adding CKEditor WYSIWYG editor in post editing form.
 * step-6 - Comments added.
+* step-7 - User registration and tracking author of comment.
 
 ##How to run this blog on local machine?
 * Install [Python 2.x](https://www.python.org/downloads/) (if not already done) 
